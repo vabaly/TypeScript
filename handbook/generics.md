@@ -31,6 +31,8 @@ function identity(arg: any): any {
 因此，我们需要一种方法使返回值的类型与传入参数的类型是相同的。 这里，我们使用了_类型变量_，它是一种特殊的变量，只用于表示类型而不是值。
 
 ```typescript
+// T 代表类型变量，表示任意类型中的某一种，这里明确了这是某种类型，并不单单是任意类型
+// 需要在函数名后面用 <> 声明类型变量
 function identity<T>(arg: T): T {
     return arg;
 }
@@ -43,6 +45,7 @@ function identity<T>(arg: T): T {
 我们定义了泛型函数后，可以用两种方法使用。 第一种是，传入所有的参数，包含类型参数：
 
 ```typescript
+// FIXME: 调用函数时也可以在函数名后面加上 <> 来明确类型变量代表的类型，这时候 <> 里面就是具体的类型了
 let output = identity<string>("myString");  // type of output will be 'string'
 ```
 
@@ -71,6 +74,7 @@ function identity<T>(arg: T): T {
 如果我们想同时打印出`arg`的长度。 我们很可能会这样做：
 
 ```typescript
+// FIXME: 要有意识地将类型变量代表的类型的参数当作任意值来看待
 function loggingIdentity<T>(arg: T): T {
     console.log(arg.length);  // Error: T doesn't have .length
     return arg;
@@ -122,6 +126,7 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
+// FIXME: 类型变量和变量一样，命名随意
 let myIdentity: <U>(arg: U) => U = identity;
 ```
 
@@ -132,6 +137,8 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
+// TODO: 调用签名
+// 
 let myIdentity: {<T>(arg: T): T} = identity;
 ```
 
@@ -152,6 +159,7 @@ let myIdentity: GenericIdentityFn = identity;
 一个相似的例子，我们可能想把泛型参数当作整个接口的一个参数。 这样我们就能清楚的知道使用的具体是哪个泛型类型（比如：`Dictionary<string>而不只是Dictionary`）。 这样接口里的其它成员也能知道这个参数的类型了。
 
 ```typescript
+// FIXME: 泛型接口，接口里面的类型变量在接口名后面的 <> 内声明，也可以像上面那样在键前面的 <> 声明，作用范围不同，后者只适用于一个键值对
 interface GenericIdentityFn<T> {
     (arg: T): T;
 }
@@ -160,6 +168,7 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
+// FIXME: 如果想从泛型函数衍生出一些明确类型的函数，可以使用泛型接口
 let myIdentity: GenericIdentityFn<number> = identity;
 ```
 
@@ -194,7 +203,7 @@ console.log(stringNumeric.add(stringNumeric.zeroValue, "test"));
 
 与接口一样，直接把泛型类型放在类后面，可以帮助我们确认类的所有属性都在使用相同的类型。
 
-我们在[类](classes.md)那节说过，类有两部分：静态部分和实例部分。 泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。
+FIXME: 我们在[类](classes.md)那节说过，类有两部分：静态部分和实例部分。 泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。
 
 ## 泛型约束
 
@@ -239,6 +248,7 @@ loggingIdentity({length: 10, value: 3});
 你可以声明一个类型参数，且它被另一个类型参数所约束。 比如，现在我们想要用属性名从对象里获取这个属性。 并且我们想要确保这个属性存在于对象`obj`上，因此我们需要在这两个类型之间使用约束。
 
 ```typescript
+// FIXME: keyof 代表继承于 T 类型的键的枚举
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
     return obj[key];
 }
@@ -250,6 +260,8 @@ getProperty(x, "m"); // error: Argument of type 'm' isn't assignable to 'a' | 'b
 ```
 
 ### 在泛型里使用类类型
+
+TODO:
 
 在TypeScript使用泛型创建工厂函数时，需要引用构造函数的类类型。比如，
 

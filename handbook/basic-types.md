@@ -117,6 +117,7 @@ let c: Color = Color.Green;
 枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 例如，我们知道数值为2，但是不确定它映射到Color里的哪个名字，我们可以查找相应的名字：
 
 ```typescript
+// FIXME: 从第一个开始自增，第一个不给值，则默认为 0
 enum Color {Red = 1, Green, Blue}
 let colorName: string = Color[2];
 

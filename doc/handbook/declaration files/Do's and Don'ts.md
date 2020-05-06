@@ -2,6 +2,7 @@
 
 ## `Number`，`String`，`Boolean`，`Symbol`和`Object`
 
+> FIXME: 因为它们根本不是类型
 *不要*使用如下类型`Number`，`String`，`Boolean`，`Symbol`或`Object`。
 这些类型指的是非原始的装盒对象，它们几乎没在JavaScript代码里正确地使用过。
 

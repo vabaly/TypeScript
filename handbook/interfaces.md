@@ -369,6 +369,7 @@ class Clock implements ClockConstructor {
 因此，我们应该直接操作类的静态部分。 看下面的例子，我们定义了两个接口，`ClockConstructor`为构造函数所用和`ClockInterface`为实例方法所用。 为了方便我们定义一个构造函数`createClock`，它用传入的类型创建实例。
 
 ```typescript
+// FIXME: 检查构造函数
 interface ClockConstructor {
   new (hour: number, minute: number): ClockInterface;
 }
@@ -414,6 +415,7 @@ interface ClockInterface {
   tick();
 }
 
+// FIXME:
 const Clock: ClockConstructor = class Clock implements ClockInterface {
   constructor(h: number, m: number) {}
   tick() {
