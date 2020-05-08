@@ -299,7 +299,7 @@ sn = undefined; // error, 'undefined'不能赋值给'string | null'
 使用了`--strictNullChecks`，可选参数会被自动地加上`| undefined`:
 
 ```typescript
-function f(x: number, y?: number) {
+function f(x: number, y?: number) { // => 实际上会处理成 y?: number | undefined
     return x + (y || 0);
 }
 f(1, 2);
@@ -699,6 +699,7 @@ let modelYear = pluck(taxi, ['model', 'year'])
 编译器会检查`manufacturer`和`model`是否真的是`Car`上的一个属性。 本例还引入了几个新的类型操作符。 首先是`keyof T`，**索引类型查询操作符**。 对于任何类型`T`，`keyof T`的结果为`T`上已知的公共属性名的联合。 例如：
 
 ```typescript
+// FIXME:
 let carProps: keyof Car; // the union of ('manufacturer' | 'model' | 'year')
 ```
 
@@ -967,6 +968,8 @@ type T10 = TypeName<string | (() => void)>;  // "string" | "function"
 type T12 = TypeName<string | string[] | undefined>;  // "string" | "object" | "undefined"
 type T11 = TypeName<string[] | number[]>;  // "object"
 ```
+
+TODO:
 
 在`T extends U ? X : Y`的实例化里，对`T`的引用被解析为联合类型的一部分（比如，`T`指向某一单个部分，在有条件类型分布到联合类型之后）。 此外，在`X`内对`T`的引用有一个附加的类型参数约束`U`（例如，`T`被当成在`X`内可赋值给`U`）。
 

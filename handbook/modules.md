@@ -128,6 +128,7 @@ import "./my-module.js";
 **jQuery.d.ts**
 
 ```typescript
+// FIXME: declare 是出现在声明外部环境变量时用的，区分代码中的声明
 declare let $: jQuery;
 export default $;
 ```
@@ -540,6 +541,8 @@ mathLib.isPrime(2); // ERROR: can't use the global definition from inside a modu
 ```typescript
 mathLib.isPrime(2);
 ```
+
+TODO:
 
 ## 创建模块结构指导
 
